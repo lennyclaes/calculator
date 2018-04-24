@@ -44,6 +44,7 @@ Calculator.prototype.readInput = function(inputArray) {
             }
 
             if(executeObject.num1 != null && executeObject.num2 != null && executeObject.operand != null) {
+                console.log(new executionObjectClass(executeObject.num1, executeObject.num2, executeObject.operand));
                 executionOrder.push(new executionObjectClass(executeObject.num1, executeObject.num2, executeObject.operand));
                 executeObject.num1 = null;
                 executeObject.num2 = null;
@@ -60,6 +61,7 @@ Calculator.prototype.readInput = function(inputArray) {
 }
 
 let orderedExecution = [];
+let sol = [];
 
 Calculator.prototype.executeInput = function(arr, ignore) {
     if(arr.length > 0 && Array.isArray(arr)) {
@@ -89,12 +91,19 @@ Calculator.prototype.executeInput = function(arr, ignore) {
                 orderedExecution.push(arr.splice(i, 1)[0]);
             }
         };
+        console.log(orderedExecution);
     }
 
     if(orderedExecution.length == this.input.length || arr.length == 0) {
         for(let i = 0; i < orderedExecution.length; i++) {
-            this.output += orderedExecution[i].operand(orderedExecution[i].num1, orderedExecution[i].num2);
-            console.log(this.output);
+            if(orderedExecution[i].num1) {
+                sol.push(orderedExecution[i].operand(orderedExecution[i].num1, orderedExecution[i].num2));
+                this.output += orderedExecution[i].operand(orderedExecution[i].num1, orderedExecution[i].num2);
+            } else {
+                this.output += orderedExecution[i].operand(orderedExecution[i].num1, orderedExecution[i].num2);
+                // sol.push(orderedExecution[i].operand(sol[sol.length - 1], orderedExecution[i].num2));
+            }
+            // console.log(this.output);
         }
     } else {
         this.executeInput(arr, true);
@@ -103,18 +112,22 @@ Calculator.prototype.executeInput = function(arr, ignore) {
 }
 
 Calculator.prototype.add = function(a, b) {
+    console.log(a + " + " + b);
     return a + b;
 }
 
 Calculator.prototype.substract = function(a, b) {
+    console.log(a + " - " + b);
     return a - b;
 }
 
 Calculator.prototype.multiply = function(a, b) {
+    console.log(a + " * " + b);
     return a * b;
 }
 
 Calculator.prototype.divide = function(a, b) {
+    console.log(a + " / " + b);
     return a / b;
 }
 
